@@ -2,7 +2,7 @@
 
 # Changelog
 1.0 
-	* Initial Release
+* Initial Release
 
 ## Description
 ![Constant Effect](/image/Level_45_Constant.png "Grand Constant Effect")
