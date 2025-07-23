@@ -1,0 +1,49 @@
+scn CESQGlobalConstantOffsetScalingQuestScript
+
+; This Script is being handled by Mad ObScript Extender
+
+float fQuestDelayTime
+float iPlayerLevel
+float iLastCheckedLevel
+float fTimer
+float fCheckedMultiplier
+float fLastCheckedMutliplier
+float fDefaultCEOffset
+float fNewCEOffset
+
+Begin GameMode
+	set fQuestDelayTime to 0.5
+	if fDefaultCEOffset != 5.0
+		set fDefaultCEOffset to 5.0
+	endif
+	set iPlayerLevel to Player.GetLevel
+	set fCheckedMultiplier to CEfMCMConstantEnchantFactor
+	if iPlayerLevel > iLastCheckedLevel
+		set fNewCEOffset to fDefaultCEOffset + iPlayerLevel * fCheckedMultiplier
+		if CEfNewConstantEnchantOffset != fNewCEOffset
+			set CEfNewConstantEnchantOffset to fNewCEOffset
+			set fTimer to 1
+		endif
+		if fTimer > 0
+			set fTimer to fTimer - GetSecondsPassed
+		else
+			message "ConsoleCommand SetGameSetting fMagicCEEnchantMagOffset ((GetGlobalValue CEfNewConstantEnchantOffset))"
+			set iLastCheckedLevel to iPlayerLevel
+			set fLastCheckedMutliplier to fCheckedMultiplier
+		endif
+	endif
+	if fCheckedMultiplier != fLastCheckedMutliplier
+		set fNewCEOffset to fDefaultCEOffset + iPlayerLevel * fCheckedMultiplier
+		if CEfNewConstantEnchantOffset != fNewCEOffset
+			set CEfNewConstantEnchantOffset to fNewCEOffset
+			set fTimer to 1
+		endif
+		if fTimer > 0
+			set fTimer to fTimer - GetSecondsPassed
+		else
+			message "ConsoleCommand SetGameSetting fMagicCEEnchantMagOffset ((GetGlobalValue CEfNewConstantEnchantOffset))"
+			set fLastCheckedMutliplier to fCheckedMultiplier
+		endif
+	endif
+end
+		
