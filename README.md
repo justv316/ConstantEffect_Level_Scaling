@@ -2,7 +2,9 @@
 
 # Changelog
 1.0 
-* Initial Release
+	* Initial Release
+1.1
+	* Added scaling for the gold cost of enchantments
 
 ## Description
 ![Constant Effect](/image/Level_45_Constant.png "Grand Constant Effect")
