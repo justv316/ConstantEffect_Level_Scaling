@@ -1,68 +1,41 @@
-scn CESQGlobalConstantOffsetScalingQuestScript
-
-; This Script is being handled by Mad ObScript Extender
+scn CESQConstantOffsetScalingQuestScript
 
 float fQuestDelayTime
-float iPlayerLevel
-float iLastCheckedLevel
-float fTimer
-float fCheckedMultiplier
-float fLastCheckedMutliplier
-float fDefaultCEOffset
-float fNewCEOffset
-float fDefaultGoldMult
-float fNewGoldMult
-
-
+short iPlayerLevel
+short iLastCheckedLevel
+float fCheckedMCM
+float fLastCheckedMCM
 
 Begin GameMode
-	set fQuestDelayTime to 0.5
-	if fDefaultCEOffset != 5.0
-		set fDefaultCEOffset to 5.0
-	endif
-	if fDefaultGoldMult != 10.0
-		set fDefaultGoldMult to 10.0
-	endif
+	set fQuestDelayTime to 0.1
 	set iPlayerLevel to Player.GetLevel
-	set fCheckedMultiplier to CEfMCMConstantEnchantFactor
+	set fCheckedMCM to CEfConstantEnchantFactor
 	if iPlayerLevel > iLastCheckedLevel
-		set fNewCEOffset to fDefaultCEOffset + iPlayerLevel * fCheckedMultiplier
-		set fNewGoldMult to fDefaultGoldMult + iPlayerLevel
-		if fGlobalNewGoldMult != fNewGoldMult
-			set fGlobalNewGoldMult to fNewGoldMult
-			set fTimer to 1
-		endif
-		if CEfNewConstantEnchantOffset != fNewCEOffset
-			set CEfNewConstantEnchantOffset to fNewCEOffset
-			set fTimer to 1
-		endif
-		if fTimer > 0
-			set fTimer to fTimer - GetSecondsPassed
-		else
-			message "ConsoleCommand SetGameSetting fMagicCEEnchantMagOffset ((GetGlobalValue CEfNewConstantEnchantOffset))"
-			message "ConsoleCommand SetGameSetting fEnchantmentGoldMult ((GetGlobalValue fGlobalNewGoldMult))"
-			set iLastCheckedLevel to iPlayerLevel
-			set fLastCheckedMutliplier to fCheckedMultiplier
-		endif
+		set CEfNewConstantEnchantOffset to 5 + iPlayerLevel * fCheckedMCM
+		set CEfNewGoldMult to 10 + iPlayerLevel
+		Message "ConsoleCommand SetGameSetting fMagicCEEnchantMagOffset ((GetGlobalValue CEfNewConstantEnchantOffset))"
+		Message "ConsoleCommand SetGameSetting fEnchantmentGoldMult ((GetGlobalValue CEfNewGoldMult))"
+		set iLastCheckedLevel to iPlayerLevel
+		set fLastCheckedMCM to fCheckedMCM
 	endif
-	if fCheckedMultiplier != fLastCheckedMutliplier
-		set fNewCEOffset to fDefaultCEOffset + iPlayerLevel * fCheckedMultiplier
-		set fNewGoldMult to fDefaultGoldMult + iPlayerLevel
-		if fGlobalNewGoldMult != fNewGoldMult
-			set fGlobalNewGoldMult to fNewGoldMult
-			set fTimer to 1
+	if fCheckedMCM != fLastCheckedMCM
+		set CEfNewConstantEnchantOffset to 5 + iPlayerLevel * fCheckedMCM
+		set CEfNewGoldMult to 10 + iPlayerLevel
+		Message "ConsoleCommand SetGameSetting fMagicCEEnchantMagOffset ((GetGlobalValue CEfNewConstantEnchantOffset))"
+		Message "ConsoleCommand SetGameSetting fEnchantmentGoldMult ((GetGlobalValue CEfNewGoldMult))"
+		set fLastCheckedMCM to fCheckedMCM
+	endif
+	if GSbMCMOpen == 0
+		if CEbRefreshSettings == 1
+			set CEfNewConstantEnchantOffset to 5 + iPlayerLevel * fCheckedMCM
+			set CEfNewGoldMult to 10 + iPlayerLevel
+			Message "ConsoleCommand SetGameSetting fMagicCEEnchantMagOffset ((GetGlobalValue CEfNewConstantEnchantOffset))"
+			Message "ConsoleCommand SetGameSetting fEnchantmentGoldMult ((GetGlobalValue CEfNewGoldMult))"
+			set CEbRefreshSettings to 0
 		endif
-		if CEfNewConstantEnchantOffset != fNewCEOffset
-			set CEfNewConstantEnchantOffset to fNewCEOffset
-			set fTimer to 1
-		endif
-		if fTimer > 0
-			set fTimer to fTimer - GetSecondsPassed
-		else
-			message "ConsoleCommand SetGameSetting fMagicCEEnchantMagOffset ((GetGlobalValue CEfNewConstantEnchantOffset))"
-			message "ConsoleCommand SetGameSetting fEnchantmentGoldMult ((GetGlobalValue fGlobalNewGoldMult))"
-			set fLastCheckedMutliplier to fCheckedMultiplier
+		if CEbDisplaySettings == 1
+			Message "ConsoleCommand MessageBox fMagicCEEnchantMagOffset is '((GetGameSetting fMagicCEEnchantMagOffset))' & fEnchantmentGoldMult is '((GetGameSetting fEnchantmentGoldMult))'"
+			set CEbDisplaySettings to 0
 		endif
 	endif
 end
-		

@@ -1,5 +1,8 @@
 # Constant Enchant Level Scaling
 
+# Brief Overview
+*  Automatically scales the constant effect offset GameSetting with the players Level.
+
 # Changelog
 1.0 
 * Initial Release
@@ -7,12 +10,19 @@
 1.1
 * Added scaling for the gold cost of enchantments
 
+1.2
+* Rewrote Script to run more efficiently
+* Added Display Current Settings and Refresh Settings CommandButtons to the menu.
+
 ## Description
 ![Constant Effect](/image/Level_45_Constant.png "Grand Constant Effect")
 
-* Automatically scales the Constant Effect offset Game Setting with the Players Level.
 * Includes MCM Functionality to customize the scaling factor.
-* You can check the console for the most recent values as they are printed there when the script runs. This also verifies if it's working. 
+	
+### Compatibility
+
+* This mod's changes will take priority if using another MCM (Like my [Comprehensive GameSettings MCM](https://www.nexusmods.com/oblivionremastered/mods/4948) that changes the same GameSettings that this does. This mod changes these GameSettings using Console Command whenever the player levels up, and whenever the multiplier is changed in the attached MCM, so any manual changes you've made to the settings will be overwritten by that mechanism. 
+* Basically incompatible with any esp that modifies the same GameSettings since the Console Commands will overwrite those values immediately. 
 
 ### Prerequisites
 1. [UE4SS](https://www.nexusmods.com/oblivionremastered/mods/32)

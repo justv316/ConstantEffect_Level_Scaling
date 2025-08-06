@@ -1,0 +1,14 @@
+scn CESQSettingManagementQuestScript
+
+float fQuestDelayTime
+
+begin GameMode
+	if GSbMCMOpen == 0
+		if CEbDisplaySettings == 1
+			Message "ConsoleCommand MessageBox fMagicCEEnchantMagOffset is '((GetGameSetting fMagicCEEnchantMagOffset))' & fEnchantmentGoldMult is '((GetGameSetting fEnchantmentGoldMult))'"
+			set CEbDisplaySettings to 0
+		endif
+		if CEbRefreshSettings == 1
+		endif
+	endif
+end
